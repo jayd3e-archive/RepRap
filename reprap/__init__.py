@@ -6,6 +6,8 @@ from reprap.utils import mako_renderer
 from reprap.handlers.exceptions import notFound
 from reprap.handlers.exceptions import forbidden
 from reprap.models.base import initializeDb
+from reprap.models.site import SiteModel
+from sqlalchemy import engine_from_config
 
 def main(global_config, **settings):
         '''Main config function'''
@@ -19,6 +21,7 @@ def main(global_config, **settings):
 
         #Includes
         config.include('pyramid_tm')
+        config.include('pyramid_debugtoolbar')
                                         
         #Handler Root Routes
         config.add_route('issues_root', '/issues')
