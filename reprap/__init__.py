@@ -5,14 +5,13 @@ from pyramid.exceptions import Forbidden
 from reprap.utils import mako_renderer
 from reprap.handlers.exceptions import notFound
 from reprap.handlers.exceptions import forbidden
-from reprap.db.config import DbConfig
 from reprap.models.base import initializeDb
-from reprap.models.base import engine
 
 def main(global_config, **settings):
         '''Main config function'''
         Form.set_default_renderer(mako_renderer)
-        initializeDb(engine(DbConfig))
+        engine = engine_from_config(settings, 'sqlalchemy.')
+        initializeDb(engine)
         config = Configurator(settings=settings,
                               root_factory=SiteModel)
          
@@ -22,6 +21,7 @@ def main(global_config, **settings):
         config.include('pyramid_tm')
                                         
         #Handler Root Routes
+        config.add_route('issues_root', '/issues')
         #Handler Action Routes
                                                                                                             
         #Exception Views
@@ -34,6 +34,7 @@ def main(global_config, **settings):
                         context=Forbidden,
                         permission='__no_permission_required__')
 
+        config.scan('reprap')
         return config.make_wsgi_app()
 
 if __name__ == '__main__':
