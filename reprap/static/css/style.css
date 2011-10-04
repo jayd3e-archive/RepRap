@@ -1,0 +1,102 @@
+/*
+*   HEADER
+*     -Logo
+*     -Main Navigation*
+*/
+.header {
+    width: 100%;
+    height: 46px;
+    background-image: url('../img/header_bg.png');
+    background-repeat: repeat-x;
+}
+
+.centered {
+    width: 960px;
+    margin: 0 auto;
+    clear: both;
+}
+
+.logo {
+    float: left;
+    margin-top: 7px;
+    height: 39px;
+    width: 76px;
+    background-image: url('../img/reprap_logo.png');   
+    background-repeat: no-repeat;
+}
+
+.main_nav {
+    float: left;
+    margin-left: 40px;
+}
+
+.main_nav li{
+    float: left;
+}
+
+.arrow0 {
+    height: 46px;
+    background-image: url('../img/arrow0_bg.png');
+    background-repeat: repeat-x;
+}
+
+.arrow0 .main {
+    padding: 12px 10px;
+}
+
+.arrow0 .separator {
+    width: 22px;
+    height: 46px;
+    background-image: url('../img/arrow0.png');
+    background-repeat: no-repeat;
+}
+
+.arrow1 {
+    height: 46px;
+    background-image: url('../img/arrow1_bg.png');
+    background-repeat: repeat-x;
+}
+
+.arrow1 .main {
+    padding: 12px 10px;
+}
+
+.arrow1 .separator {
+    width: 23px;
+    height: 46px;
+    background-image: url('../img/arrow1.png');
+    background-repeat: no-repeat;
+}
+
+.arrow2 {
+    height: 46px;
+    background-image: url('../img/arrow2_bg.png');
+    background-repeat: repeat-x;
+}
+
+.arrow2 .main {
+    padding: 12px 10px;
+}
+
+.arrow2 .separator {
+    width: 24px;
+    height: 46px;
+    background-image: url('../img/arrow2.png');
+    background-repeat: no-repeat;
+}
+
+.search {
+    float: left;
+    margin-top: 6px;
+    margin-left: 10px;
+    width: 175px;
+}
+
+.search:focus {
+    outline-color: #73ba5f;
+}
+
+.account {
+    padding-top: 13px;
+    float: right;   
+}

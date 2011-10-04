@@ -1,0 +1,51 @@
+/*
+ *DEFAULT FONT STYLES
+ */
+h1,h2,h3,h4,h5,h6,span,a,legend,input {
+    font-family:  Helvetica, Verdana, Geneva, sans-serif;
+    font-weight: 300;
+}
+p {
+    font-family:  Helvetica, Verdana, Geneva, sans-serif;
+}
+a {
+    font-size: 78%;
+    text-decoration: none;
+}
+p,input,span,legend {
+    font-size: 78%;
+}
+h1 {
+    font-size: 110%;
+}
+h2 {
+    font-size: 105%;
+}
+h3 {
+    font-size: 100%;
+}
+h4 {
+    font-size: 95%;
+}
+h5 {
+    font-size: 90%;
+}
+h6 {
+    font-size: 85%;
+}
+.main_nav a {
+    font-weight: 600;
+    font-size: 71%;
+    color: #3b3b3b;
+}
+.main_nav a:hover {
+    color: #fff;
+}
+.main_nav a.active {
+    color: #fff;   
+}
+.account a{
+    font-size: 71%;
+    color: #73ba5f;
+    font-weight: 600;
+}

@@ -18,10 +18,6 @@ def main(global_config, **settings):
                               root_factory=SiteModel)
          
         config.add_static_view(name='static', path='reprap:static')
-
-        #Includes
-        config.include('pyramid_tm')
-        config.include('pyramid_debugtoolbar')
                                         
         #Handler Root Routes
         config.add_route('issues_root', '/issues')
