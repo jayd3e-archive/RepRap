@@ -100,3 +100,37 @@
     padding-top: 13px;
     float: right;   
 }
+
+/*
+*   BODY
+*     -Left Column
+*     -Right Column
+*     -Action Column
+*/
+
+.body {
+    min-width: 960px;
+    min-height: 200px;
+    padding-top: 10px;
+}
+
+.left_column {
+    float: left;
+    width: 400px;
+    height: 200px;
+    display: block;
+}
+
+.right_column {
+    float: left;
+    width: 400px;
+    min-height: 200px;
+    display: block;
+}
+
+.action_column {
+    float: left;
+    width: 160px;
+    min-height: 200px;
+    display: block;
+}
