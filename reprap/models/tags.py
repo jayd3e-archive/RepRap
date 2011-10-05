@@ -1,7 +1,7 @@
 from reprap.models.base import Base
 from sqlalchemy import Column, Integer, String, Date, DateTime
 
-class TagModel(Base):
+class TagsModel(Base):
     __tablename__ = 'tags'
     
     id = Column(Integer, primary_key=True)

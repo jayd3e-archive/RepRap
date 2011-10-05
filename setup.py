@@ -25,6 +25,6 @@ setup(name='RepRap',
       install_requires=requires,
       url='http://localhost',
       packages=['reprap'],
-      test_suite='reprap',
+      test_suite='reprap.tests',
       entry_points = entry_points
 )

@@ -1,7 +1,7 @@
 from reprap.models.base import Base
 from sqlalchemy import Column, Integer, String, Date, DateTime
 
-class IssueModel(Base):
+class IssuesModel(Base):
     __tablename__ = 'issues'
     
     id = Column(Integer, primary_key=True)

@@ -1,12 +1,12 @@
 from reprap.models.base import Base
 from sqlalchemy import Column, Integer, String, Date, DateTime
 
-class IssueCommentModel(Base):
-    __tablename__ = 'issue_comment'
+class IssueCommentsModel(Base):
+    __tablename__ = 'issue_comments'
     
     id = Column(Integer, primary_key=True)
     body = Column(String(300))
-    issue_id = Column
+    issue_id = Column(Integer)
     user_id = Column(Integer)
     created = Column(DateTime)
     change_time = Column(DateTime)
