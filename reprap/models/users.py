@@ -1,5 +1,6 @@
 from reprap.models.base import Base
 from reprap.models.issues import IssuesModel
+from reprap.models.issue_comments import IssueCommentsModel
 from sqlalchemy import Column, Integer, String, Date, DateTime
 from sqlalchemy.orm import relationship
 
@@ -10,6 +11,7 @@ class UsersModel(Base):
     username = Column(String(50))
     email = Column(String(50))
     issues = relationship(IssuesModel, backref="user")
+    comments = relationship(IssueCommentsModel, backref="user")
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
