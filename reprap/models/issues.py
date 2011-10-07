@@ -1,5 +1,10 @@
 from reprap.models.base import Base
+from reprap.models.tags import TagsModel
+from reprap.models.tags_issues import TagsIssuesModel
+from reprap.models.issue_comments import IssueCommentsModel
+from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy.orm import relationship
 
 class IssuesModel(Base):
     __tablename__ = 'issues'
@@ -8,18 +13,23 @@ class IssuesModel(Base):
     title = Column(String(50))
     description = Column(String(2000))
     solved = Column(Integer)
-    user_id = Column(Integer)
     created = Column(DateTime)
     change_time = Column(DateTime)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    tags = relationship(TagsModel,
+                        secondary=TagsIssuesModel,
+                        backref="issues")
+    comments = relationship(IssueCommentsModel,
+                            backref="issue")
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
 
     def __repr__(self):
-        return "<Issue('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, 
-                                                                      self.title, 
-                                                                      self.description, 
-                                                                      self.solved,
-                                                                      self.user_id,
-                                                                      self.created, 
-                                                                      self.change_time)
+        return "<Issues('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, 
+                                                                       self.title, 
+                                                                       self.description, 
+                                                                       self.solved,
+                                                                       self.created, 
+                                                                       self.change_time,
+                                                                       self.user_id)

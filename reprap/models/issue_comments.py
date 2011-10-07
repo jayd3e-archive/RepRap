@@ -1,4 +1,5 @@
 from reprap.models.base import Base
+from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
 
 class IssueCommentsModel(Base):
@@ -6,18 +7,18 @@ class IssueCommentsModel(Base):
     
     id = Column(Integer, primary_key=True)
     body = Column(String(300))
-    issue_id = Column(Integer)
-    user_id = Column(Integer)
     created = Column(DateTime)
     change_time = Column(DateTime)
+    issue_id = Column(Integer, ForeignKey('issues.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
 
     def __repr__(self):
-        return "<Issue('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, 
-                                                                self.body, 
-                                                                self.issue_id, 
-                                                                self.user_id, 
-                                                                self.created, 
-                                                                self.change_time)
+        return "<IssueComments('%s', '%s', '%s', '%s', '%s', '%s')>" % (self.id, 
+                                                                        self.body, 
+                                                                        self.issue, 
+                                                                        self.user, 
+                                                                        self.created, 
+                                                                        self.change_time)

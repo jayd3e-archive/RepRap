@@ -11,5 +11,5 @@ class TagsModel(Base):
         self.__dict__.update(fields)
 
     def __repr__(self):
-        return "<Issue('%s', '%s')>" % (self.id, 
+        return "<Tags('%s', '%s')>" % (self.id, 
                                         self.name)

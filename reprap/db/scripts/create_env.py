@@ -6,34 +6,47 @@ from sqlalchemy import DateTime
 from sqlalchemy import MetaData
 from sqlalchemy import ForeignKey
 from sqlalchemy import create_engine
-from reprap.db.config import DbConfig
-from reprap.db.config import TestConfig
 
-class CreateEnv(object):
-    def __init__(self):
-        pass
+def create_schema(self, engine):
+    self.metadata = MetaData(engine)
+    
+    users = Table('users', self.metadata,
+                  Column('id', Integer, primary_key=True),
+                  Column('username', String(50)),
+                  Column('email', String(50))
+    )
+    
+    issues  = Table('issues', self.metadata,
+                    Column('id', Integer, primary_key=True),
+                    Column('title', String(50)),
+                    Column('description', String(2000)),
+                    Column('solved', Integer),
+                    Column('created', DateTime),
+                    Column('change_time', DateTime),
+                    Column('user_id', Integer)
+    )
+    
+    tags  = Table('tags', self.metadata,
+                  Column('id', Integer, primary_key=True),
+                  Column('name', String(50))
+    )
+    
+    tags_issues = Table('tags_issues', self.metadata,
+                        Column('tag_id', Integer, ForeignKey('tags.id'), primary_key=True),
+                        Column('issue_id', Integer, ForeignKey('issues.id'), primary_key=True)
+    )
 
-    def create_db(self, config):
-        create = config.engine + '://'
-
-        if config.user:
-            create += config.user
-        elif config.file:
-            create += config.file
-
-        if config.pw:
-            create += ':' + config.pw
-        if config.host:
-            create += '@' + config.host
-        if config.db:
-            create += '/' + config.db
-
-        self.db = create_engine(create, pool_recycle=3600)
-
-    def create_schema(self):
-        metadata = MetaData(self.db)
-
+    issue_comments  = Table('issue_comments', self.metadata,
+                            Column('id', Integer, primary_key=True),
+                            Column('body', String(300)),
+                            Column('created', DateTime),
+                            Column('change_time', DateTime),
+                            Column('issue_id', Integer),
+                            Column('user_id', Integer)
+    )        
+    
+    self.metadata.create_all()
+        
 if __name__ == '__main__':
-    c = CreateEnv()
-    c.create_db(DbConfig)
-    c.create_schema()
+    engine = create_engine('sqlite://', pool_recycle=3600)
+    create_schema(engine)
