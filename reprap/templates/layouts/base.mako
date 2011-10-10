@@ -7,9 +7,7 @@
         <title>${title}</title>
         <link rel="stylesheet" type="text/css" href="/static/css/reset.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-        <link rel="stylesheet" type="text/css" href="/static/css/form.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/type.css" />
-        <link rel="stylesheet" type="text/css" href="/static/css/form_type.css" />
     </head>
     <body>
         <div class="header">
