@@ -19,7 +19,7 @@ class IssuesHandler(object):
         title = "Add Issue"
         
         schema = AddIssueSchema()
-        form = Form(schema, buttons=('submit',))
+        form = Form(schema, buttons=['submit'])
     
         if 'submit' in self.request.POST:
             controls = self.request.POST.items()

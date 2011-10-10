@@ -13,55 +13,53 @@ accept-charset="utf-8" \
  class="${field.css_class}"\
 % endif
 >
-  <fieldset class="deformFormFieldset">
-    % if field.title:
-    <legend>${_(field.title)}</legend>
+
+% if field.title:
+<legend>${field.title}</legend>
+% endif
+
+<input type="hidden" name="_charset_" />
+<input type="hidden" name="__formid__" value="${field.formid}"/>
+<ul>
+
+  % if field.error:
+  <li class="errorLi">
+    <h3 class="errorMsgLbl">${"There was a problem with your submission"}</h3>
+    <p class="errorMsg">${"Errors have been highlighted below"}</p>
+  </li>
+  % endif
+
+  % if field.title:
+  <li class="section first">
+    <h3>${field.title}</h3>
+    % if field.description:
+    <div>${field.description}</div>
     % endif
+  </li>
+  % endif
 
-    <input type="hidden" name="_charset_" />
-    <input type="hidden" name="__formid__" value="${field.formid}"/>
-    <ul>
+  % for f in field.children:
+  ${rndr(tmpl, field=f, cstruct=cstruct.get(f.name, null))}
+  % endfor
 
-      % if field.error:
-      <li class="errorLi">
-        <h3 class="errorMsgLbl">${_("There was a problem with your submission")}</h3>
-        <p class="errorMsg">${_("Errors have been highlighted below")}</p>
-      </li>
-      % endif
+  <li class="buttons">
+    % for button in field.buttons:
+      <button
+          id="${field.formid+button.name}"
+          name="${button.name}"
+          type="${button.type}"
+          class="btnText submit"
+          value="${button.value}"
+          % if button.disabled:
+           disabled="disabled"
+          % endif
+          >
+        <span>${button.title}</span>
+      </button>
+    % endfor
+  </li>
 
-      % if field.title:
-      <li class="section first">
-        <h3>${_(field.title)}</h3>
-        % if field.description:
-        <div>${_(field.description)}</div>
-        % endif
-      </li>
-      % endif
-
-      % for f in field.children:
-      ${rndr(tmpl, field=f, cstruct=cstruct.get(f.name, null))}
-      % endfor
-
-      <li class="buttons">
-        % for button in field.buttons:
-          <button
-              id="${field.formid+button.name}"
-              name="${button.name}"
-              type="${button.type}"
-              class="btnText submit"
-              value="${_(button.value)}"
-              % if button.disabled:
-               disabled="disabled"
-              % endif
-              >
-            <span>${_(button.title)}</span>
-          </button>
-        % endfor
-      </li>
-
-    </ul>
-
-  </fieldset>
+</ul>
 
 % if field.use_ajax:
 <script type="text/javascript">
