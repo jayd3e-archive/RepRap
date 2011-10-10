@@ -2,7 +2,7 @@ from deform import Form
 from pyramid.config import Configurator
 from pyramid.exceptions import NotFound
 from pyramid.exceptions import Forbidden
-from reprap.utils import mako_renderer
+from reprap.utils import mako_renderer_factory
 from reprap.handlers.exceptions import notFound
 from reprap.handlers.exceptions import forbidden
 from reprap.models.base import initializeBase
@@ -13,7 +13,8 @@ from sqlalchemy.orm import sessionmaker
 
 def main(global_config, **settings):
         '''Main config function'''
-        Form.set_default_renderer(mako_renderer)
+        renderer = mako_renderer_factory('reprap/templates/forms/')
+        Form.set_default_renderer(renderer)
         
         engine = engine_from_config(settings, 'sqlalchemy.')
         initializeBase(engine)
