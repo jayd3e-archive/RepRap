@@ -78,3 +78,49 @@ class TestModels(unittest.TestCase):
         self.assertEqual(comment.user, user)
         self.assertIn(comment, issue.comments)
         self.assertEqual(comment.issue, issue)
+        
+    def testTagsModel(self):
+        tag = TagsModel(name="python")
+        
+        session = self.Session()
+        session.add(tag)
+        
+        issue = IssuesModel(title="Important Issue",
+                            description="This issue is really important.",
+                            solved=0,
+                            created=datetime.now(),
+                            edited=datetime.now())
+        tag.issues.append(issue)
+        
+        session.flush()
+        self.assertTrue(str(tag).startswith('<Tags'),
+                        msg="str(Tags) must start with '<Tags'")
+        self.assertIn(issue, tag.issues)
+        self.assertIn(tag, issue.tags)
+        
+    def testUsersModel(self):
+        user = UsersModel(username="jayd3e",
+                          email="test@gmail.com")
+        
+        session = self.Session()
+        session.add(user)
+        
+        issue = IssuesModel(title="Important Issue",
+                            description="This issue is really important.",
+                            solved=0,
+                            created=datetime.now(),
+                            edited=datetime.now())
+        user.issues.append(issue)
+        
+        comment = IssueCommentsModel(body="U SUCK",
+                                     created=datetime.now(),
+                                     change_time=datetime.now())
+        user.comments.append(comment)
+        
+        session.flush()
+        self.assertTrue(str(user).startswith('<Users'),
+                        msg="str(Users) must start with '<Users'")
+        self.assertIn(comment, user.comments)
+        self.assertEqual(comment.user, user)
+        self.assertIn(issue, user.issues)
+        self.assertEqual(issue.user, user)
