@@ -141,3 +141,13 @@
     min-height: 200px;
     display: block;
 }
+
+/*
+*
+*  DEFORM STYLE
+*
+*/
+
+.deform ul li {
+    padding-bottom: 5px;
+}

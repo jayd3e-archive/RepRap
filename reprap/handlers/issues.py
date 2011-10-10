@@ -30,7 +30,7 @@ class IssuesHandler(object):
                         'here':self.here,
                         'title':title}
             return {'form':'OK'}
-
+        
         return {'here':self.here,
                 'title':title,
                 'form':form.render()}

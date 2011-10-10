@@ -1,7 +1,7 @@
 /*
  *DEFAULT FONT STYLES
  */
-h1,h2,h3,h4,h5,h6,span,a,legend,input {
+h1,h2,h3,h4,h5,h6,span,a,legend,input,label {
     font-family:  Helvetica, Verdana, Geneva, sans-serif;
     font-weight: 300;
 }
@@ -12,7 +12,7 @@ a {
     font-size: 78%;
     text-decoration: none;
 }
-p,input,span,legend {
+p,input,span,legend,label {
     font-size: 78%;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -52,4 +52,14 @@ h6 {
     font-size: 71%;
     color: #73ba5f;
     font-weight: 600;
+}
+
+/*
+*
+*  DEFORM TYPE STYLE
+*
+*/
+
+.deform .req {
+    color: red;   
 }
