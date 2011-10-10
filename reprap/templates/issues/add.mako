@@ -2,7 +2,8 @@
 
 <%def name="body()">
     <div class="content_column">
-        <h1>Recently Added Issues</h1>
+        <h1>Add Issue</h1>
+        ${form | n}
     </div>
     <div class="action_column">
         <h1>Actions</h1>
