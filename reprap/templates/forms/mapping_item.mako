@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 % if not field.widget.hidden:
-<li\
+<tr\
 % if field.error and field.widget.error_class:
  class="${field.widget.error_class}"\
 % endif
@@ -8,15 +8,17 @@
 % endif
 <!-- mapping_item -->
 % if not (field.widget.hidden or field.widget.category=='structural'):
-<label class="desc" title="${field.description}" for="${field.oid}">\
+<th class="desc" title="${field.description}" for="${field.oid}">\
 ${field.title}\
 % if field.required:
 <span class="req" id="req-${field.oid}">*</span>\
 % endif
-</label>
+</th>
 % endif
 
-  ${field.serialize(cstruct)}
+  <td>
+    ${field.serialize(cstruct)}
+  </td>
 
   % if field.error and not field.widget.hidden:
   % for index, msg in enumerate(field.error.messages()):
@@ -30,5 +32,5 @@ pid = (index==0 and errstr) or ('%s-%s' % (errstr, index))
 
   <!-- /mapping_item -->
 % if not field.widget.hidden:
-</li>
+</tr>
 % endif

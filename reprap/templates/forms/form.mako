@@ -20,30 +20,31 @@ accept-charset="utf-8" \
 
 <input type="hidden" name="_charset_" />
 <input type="hidden" name="__formid__" value="${field.formid}"/>
-<ul>
+<table cellpadding="0" cellspacing="0">
 
   % if field.error:
-  <li class="errorLi">
+  <tr class="errorLi">
     <h3 class="errorMsgLbl">${"There was a problem with your submission"}</h3>
     <p class="errorMsg">${"Errors have been highlighted below"}</p>
-  </li>
+  </tr>
   % endif
 
   % if field.title:
-  <li class="section first">
+  <tr class="section first">
     <h3>${field.title}</h3>
     % if field.description:
     <div>${field.description}</div>
     % endif
-  </li>
+  </tr>
   % endif
 
   % for f in field.children:
-  ${rndr(tmpl, field=f, cstruct=cstruct.get(f.name, null))}
+    ${rndr(tmpl, field=f, cstruct=cstruct.get(f.name, null))}
   % endfor
 
-  <li class="buttons">
+  <tr class="buttons">
     % for button in field.buttons:
+      <td>
       <button
           id="${field.formid+button.name}"
           name="${button.name}"
@@ -55,11 +56,12 @@ accept-charset="utf-8" \
           % endif
           >
         <span>${button.title}</span>
-      </button>
+      </button
+      </td>
     % endfor
-  </li>
+  </tr>
 
-</ul>
+</table>
 
 % if field.use_ajax:
 <script type="text/javascript">

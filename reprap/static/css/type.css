@@ -1,7 +1,7 @@
 /*
  *DEFAULT FONT STYLES
  */
-h1,h2,h3,h4,h5,h6,span,a,legend,input,label {
+h1,h2,h3,h4,h5,h6,span,a,legend,input,label,th {
     font-family:  Helvetica, Verdana, Geneva, sans-serif;
     font-weight: 300;
 }
@@ -15,12 +15,15 @@ a {
 p,input,span,legend,label {
     font-size: 78%;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, th {
     color: #2e2e2e;
     padding-bottom: 5px;
+    text-align: left;
+    vertical-align: top;
 }
-h1 {
+h1, th {
     font-size: 78%;
+    font-weight: 300;
 }
 h2 {
     font-size: 105%;

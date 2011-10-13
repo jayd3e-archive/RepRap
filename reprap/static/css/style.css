@@ -147,7 +147,11 @@
 *  DEFORM STYLE
 *
 */
+.deform table {
+    padding: 0;   
+}
 
-.deform ul li {
+.deform table td, .deform table th {
     padding-bottom: 5px;
+    padding-right: 5px;
 }
