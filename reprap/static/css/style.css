@@ -155,3 +155,16 @@
     padding-bottom: 5px;
     padding-right: 5px;
 }
+
+.deform .error {
+    color: red;   
+}
+
+.deform .errorMsg {
+    color: red;
+    padding-bottom: 5px;
+}
+
+.deform .errorMsgLbl {
+    padding: 0;
+}

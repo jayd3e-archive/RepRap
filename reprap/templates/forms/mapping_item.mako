@@ -20,17 +20,21 @@ ${field.title}\
     ${field.serialize(cstruct)}
   </td>
 
-  % if field.error and not field.widget.hidden:
-  % for index, msg in enumerate(field.error.messages()):
-<%
-errstr = 'error-%s' % field.oid
-pid = (index==0 and errstr) or ('%s-%s' % (errstr, index))
-%>
-  <p id="${pid}" class="${field.widget.error_class}">${msg}</p>
-  % endfor
-  % endif
-
-  <!-- /mapping_item -->
+<!-- /mapping_item -->
 % if not field.widget.hidden:
+</tr>
+% endif
+
+% if field.error and not field.widget.hidden:
+<tr>
+  <td colspan="2">
+      % for index, msg in enumerate(field.error.messages()):
+        <%
+          errstr = 'error-%s' % field.oid
+          pid = (index==0 and errstr) or ('%s-%s' % (errstr, index))
+        %>
+        <p id="${pid}" class="${field.widget.error_class}">${msg}</p>
+      % endfor
+  </td>
 </tr>
 % endif

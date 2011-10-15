@@ -18,7 +18,10 @@ def main(global_config, **settings):
         
         engine = engine_from_config(settings, 'sqlalchemy.')
         initializeBase(engine)
-        maker = sessionmaker(bind=engine)
+        # NOTE: A transaction is created by default in postgres, so I have added the
+        # 'autocommit' kwarg so that I don't have to deal with transactions for
+        # the moment.  Remove it once I have pyramid_tm & zope.sqlalchemy implemented.
+        maker = sessionmaker(bind=engine, autocommit=True)
         settings['db.sessionmaker'] = maker
         
         config = Configurator(settings=settings,
@@ -31,6 +34,7 @@ def main(global_config, **settings):
         config.add_route('issues_root', '/issues')
         #Handler Action Routes
         config.add_route('issues_add', '/issues/add')
+        config.add_route('issues_view', '/issues/view/{id}')
                                                                                                             
         #Exception Views
         config.add_view(notFound,

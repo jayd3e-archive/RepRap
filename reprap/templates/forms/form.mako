@@ -24,7 +24,7 @@ accept-charset="utf-8" \
 
   % if field.error:
   <tr class="errorLi">
-    <h3 class="errorMsgLbl">${"There was a problem with your submission"}</h3>
+    <h1 class="errorMsgLbl">${"There was a problem with your submission"}</h1>
     <p class="errorMsg">${"Errors have been highlighted below"}</p>
   </tr>
   % endif
