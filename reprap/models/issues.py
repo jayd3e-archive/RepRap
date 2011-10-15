@@ -2,6 +2,7 @@ from reprap.models.base import Base
 from reprap.models.tags import TagsModel
 from reprap.models.tags_issues import TagsIssuesModel
 from reprap.models.issue_comments import IssueCommentsModel
+from reprap.models.issue_images import IssueImagesModel
 from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
 from sqlalchemy.orm import relationship
@@ -21,6 +22,8 @@ class IssuesModel(Base):
                         backref="issues")
     comments = relationship(IssueCommentsModel,
                             backref="issue")
+    images = relationship(IssueImagesModel,
+                          backref="issue")
 
     def __init__(self, **fields):
         self.__dict__.update(fields)

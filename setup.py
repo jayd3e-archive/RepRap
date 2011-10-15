@@ -16,7 +16,8 @@ requires = ['pyramid',
             'pyramid_debugtoolbar',
             'sqlalchemy',
             'mako',
-            'deform']
+            'deform',
+            'pil']
 
 setup(name='RepRap',
       version='0.1dev',

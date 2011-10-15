@@ -1,7 +1,10 @@
 import unittest
+import os
+import base64
 from datetime import datetime
 from reprap.models.issues import IssuesModel
 from reprap.models.issue_comments import IssueCommentsModel
+from reprap.models.issue_images import IssueImagesModel
 from reprap.models.tags import TagsModel
 from reprap.models.tags_issues import TagsIssuesModel
 from reprap.models.users import UsersModel
@@ -94,7 +97,7 @@ class TestModels(unittest.TestCase):
         
         session.flush()
         self.assertTrue(str(tag).startswith('<Tags'),
-                        msg="str(Tags) must start with '<Tags'")
+                        msg="str(TagsModel) must start with '<Tags'")
         self.assertIn(issue, tag.issues)
         self.assertIn(tag, issue.tags)
         
@@ -119,8 +122,32 @@ class TestModels(unittest.TestCase):
         
         session.flush()
         self.assertTrue(str(user).startswith('<Users'),
-                        msg="str(Users) must start with '<Users'")
+                        msg="str(UsersModel) must start with '<Users'")
         self.assertIn(comment, user.comments)
         self.assertEqual(comment.user, user)
         self.assertIn(issue, user.issues)
         self.assertEqual(issue.user, user)
+        
+    def testIssueImagesModel(self):
+        uid = os.urandom(10)
+        hex_uid = base64.b64encode(uid)
+        image = IssueImagesModel(directory = hex_uid.upper(),
+                                 filename = 'Butterflies.jpg',
+                                 filesize = 101010101,
+                                 mimetype = 'image/jpeg')
+        
+        session = self.Session()
+        session.add(image)
+        
+        issue = IssuesModel(title="Important Issue",
+                            description="This issue is really important.",
+                            solved=0,
+                            created=datetime.now(),
+                            edited=datetime.now())
+        image.issue = issue
+        
+        session.flush()
+        self.assertTrue(str(image).startswith('<IssueImages'),
+                        msg="str(IssueImagesModel) must start with '<IssueImages'")
+        self.assertIn(image, issue.images)
+        self.assertEqual(image.issue, issue)

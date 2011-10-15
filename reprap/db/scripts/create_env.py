@@ -43,7 +43,16 @@ def create_schema(engine):
                             Column('change_time', DateTime),
                             Column('issue_id', Integer),
                             Column('user_id', Integer)
-    )        
+    )
+    
+    issue_images  = Table('issue_images', metadata,
+                          Column('id', Integer, primary_key=True),
+                          Column('directory', String(10)),
+                          Column('filename', String(100)),
+                          Column('filesize', Integer),
+                          Column('mimetype', String(50)),
+                          Column('issue_id', Integer, ForeignKey('issues.id'))
+    )
     
     metadata.create_all()
         
