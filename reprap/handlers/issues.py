@@ -42,7 +42,9 @@ class IssuesHandler(object):
                                 solved=0,
                                 created=datetime.now(),
                                 edited=datetime.now())
-            image_set = Image(captured['file'])
+            base_image = Image(captured['file'])
+            base_image.resize((300, 300))
+            base_image.thumbnail((50, 50))
             image = IssueImagesModel(directory = image_set.uid,
                                      filename = image_set.filename,
                                      filesize = image_set.filesize,

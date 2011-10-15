@@ -4,14 +4,7 @@ import Image as PILImage
 class Image(object):
     MAX_SIZEX = 1000 # this is the maximum width of the images
     MAX_SIZEY = 1000 # this is the maximum height of the images
-    TILE_SIZEX = 200 # this is the maximum width of the tile images
-    TILE_SIZEY = 200 # this is the maximum height of the tile images
-    THUMBNAIL_SIZEX = 50 # this is the maximum width of the thumbnail images
-    THUMBNAIL_SIZEY = 50 # this is the maximum height of the thumbnail images
     
-    image_names = {'base' : 'base',
-                   'tile' : 'tile',
-                   'thumbnail' : 'thumbnail'}
     types = {'image/jpeg' : '.jpeg'}
 
     def __init__(self, file):
@@ -26,7 +19,7 @@ class Image(object):
         self.directory = 'reprap/static/img/issue_images/' + self.uid + '/'
         self.create_dir()
         
-        self.base_filename = self.directory + self.image_names['base'] + self.types[self.mimetype]
+        self.base_filename = self.directory + 'base' + self.types[self.mimetype]
         self.create_base_image()
         
         image = PILImage.open(self.base_filename) # open the input file
@@ -48,8 +41,7 @@ class Image(object):
         if width != height * ratio:
             image = image.crop((left, top, right, bottom))
         
-        self.create_tile_image(image)
-        self.create_thumbnail_image(image)
+        self.image = image
 
     def create_dir(self):
         os.mkdir(self.directory)
@@ -58,20 +50,22 @@ class Image(object):
         with open(self.base_filename, 'w+') as fh:
             fh.write(self.contents)
             
-    def create_tile_image(self, image):
-        temp_img = image.copy()
-
+    def resize(self, size):
+        temp_img = self.image.copy()
+        width = size[0]; height = size[1]
+        
         self.tile_filename = self.directory + \
-                             self.image_names['tile'] + \
+                             'tile' + \
                              self.types[self.mimetype]
-        temp_img = temp_img.resize((self.TILE_SIZEX, self.TILE_SIZEY), PILImage.ANTIALIAS)
+        temp_img = temp_img.resize((width, height), PILImage.ANTIALIAS)
         temp_img.save(self.tile_filename, "JPEG", quality = 100) # save the image
     
-    def create_thumbnail_image(self, image):
-        temp_img = image.copy()
-
+    def thumbnail(self, size):
+        temp_img = self.image.copy()
+        width = size[0]; height = size[1]
+        
         self.thumbnail_filename = self.directory + \
-                                  self.image_names['thumbnail'] + \
+                                  'thumbnail' + \
                                   self.types[self.mimetype]
-        temp_img.thumbnail((self.THUMBNAIL_SIZEX, self.THUMBNAIL_SIZEY), PILImage.ANTIALIAS)
+        temp_img.thumbnail((width, height), PILImage.ANTIALIAS)
         temp_img.save(self.thumbnail_filename, "JPEG", quality = 80) # save the image
