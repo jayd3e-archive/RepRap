@@ -142,6 +142,46 @@
     display: block;
 }
 
+.image_gallery {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    height: 300px;
+    width: 775px;
+}
+
+.image_slide {
+    position: absolute;
+    width: 2000px;
+}
+
+.image {
+    float: left;
+    margin-right: 10px;
+}
+
+.left_arrow {
+    position: absolute;
+    left: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.left_arrow:hover {
+    cursor: pointer;
+}
+
+.right_arrow {
+    position: absolute;
+    right: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.right_arrow:hover {
+    cursor: pointer;
+}
+
 /*
 *
 *  DEFORM STYLE
@@ -154,6 +194,10 @@
 .deform table td, .deform table th {
     padding-bottom: 5px;
     padding-right: 5px;
+}
+
+.deform .issue_add_textarea, .deform .issue_add_textinput {
+    width: 550px;
 }
 
 .deform .error {

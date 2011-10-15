@@ -3,6 +3,7 @@ from pyramid.config import Configurator
 from pyramid.exceptions import NotFound
 from pyramid.exceptions import Forbidden
 from reprap.utils import mako_renderer_factory
+from reprap.i18n import translator
 from reprap.handlers.exceptions import notFound
 from reprap.handlers.exceptions import forbidden
 from reprap.models.base import initializeBase
@@ -13,7 +14,8 @@ from sqlalchemy.orm import sessionmaker
 
 def main(global_config, **settings):
         '''Main config function'''
-        renderer = mako_renderer_factory('reprap/templates/forms/')
+        renderer = mako_renderer_factory('reprap/templates/forms/',
+                                         translator=translator)
         Form.set_default_renderer(renderer)
         
         engine = engine_from_config(settings, 'sqlalchemy.')
@@ -45,7 +47,7 @@ def main(global_config, **settings):
         config.add_view(forbidden,
                         context=Forbidden,
                         permission='__no_permission_required__')
-
+                          
         config.scan('reprap')
         return config.make_wsgi_app()
 

@@ -7,6 +7,7 @@ from reprap.models.issues import IssuesModel
 from reprap.models.issue_images import IssueImagesModel
 from reprap.image import Image
 from deform import Form
+from deform.widget import SequenceWidget
 from deform.exception import ValidationFailure
 
 class IssuesHandler(object):
@@ -26,6 +27,7 @@ class IssuesHandler(object):
         
         schema = AddIssueSchema()
         form = Form(schema, buttons=['submit'])
+        form['images'].widget = SequenceWidget(min_len=1)
     
         if 'submit' in self.request.POST:
             controls = self.request.POST.items()
@@ -42,19 +44,20 @@ class IssuesHandler(object):
                                 solved=0,
                                 created=datetime.now(),
                                 edited=datetime.now())
-            base_image = Image(captured['file'])
-            base_image.resize((300, 300))
-            base_image.thumbnail((50, 50))
-            image = IssueImagesModel(directory = image_set.uid,
-                                     filename = image_set.filename,
-                                     filesize = image_set.filesize,
-                                     mimetype = image_set.mimetype)
-            issue.images.append(image)
+            for image_info in captured['images']:
+                base_image = Image(image_info)
+                base_image.resize((300, 300))
+                base_image.thumbnail((50, 50))
+                image = IssueImagesModel(directory = base_image.uid,
+                                         filename = base_image.filename,
+                                         filesize = base_image.filesize,
+                                         mimetype = base_image.mimetype)
+                issue.images.append(image)
             
             db.add(issue)
             db.flush()
             return HTTPFound(location="/issues/view/" + str(issue.id))
-        
+
         return {'here':self.here,
                 'title':title,
                 'form':form.render()}

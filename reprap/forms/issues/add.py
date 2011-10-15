@@ -6,7 +6,7 @@ from colander import Boolean
 from colander import Integer
 from colander import Length
 from colander import OneOf
-import colander
+from deform.widget import TextInputWidget
 from deform.widget import TextAreaWidget
 from deform.widget import FileUploadWidget
 from deform import FileData
@@ -17,14 +17,19 @@ class MemoryTmpStore(dict):
 
 store = MemoryTmpStore()
 
+class ImageSequence(SequenceSchema):
+            image = SchemaNode(FileData(),
+                               description="Issue Image",
+                               widget=FileUploadWidget(store, size=77))
+
 class AddIssueSchema(MappingSchema):
-    file = SchemaNode(FileData(),
-                      description = "Issue Image",
-                      widget=FileUploadWidget(store))
+    images = ImageSequence()
     title = SchemaNode(String(),
-                       description = "Issue Tittle")
+                       description="Issue Tittle",
+                       widget=TextInputWidget(css_class="issue_add_textinput"))
     description = SchemaNode(String(),
-                             description = "Issue Description",
-                             widget=TextAreaWidget())
+                             description="Issue Description",
+                             widget=TextAreaWidget(css_class="issue_add_textarea"))
     tags = SchemaNode(String(),
-                      description = "Issue Tags")
+                      description="Issue Tags",
+                      widget=TextInputWidget(css_class = "issue_add_textinput"))

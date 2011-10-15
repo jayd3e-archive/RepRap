@@ -25,9 +25,9 @@ ${field.title}\
 </tr>
 % endif
 
-% if field.error and not field.widget.hidden:
 <tr>
   <td colspan="2">
+    % if field.error and not field.widget.hidden:
       % for index, msg in enumerate(field.error.messages()):
         <%
           errstr = 'error-%s' % field.oid
@@ -35,6 +35,6 @@ ${field.title}\
         %>
         <p id="${pid}" class="${field.widget.error_class}">${msg}</p>
       % endfor
+    % endif
   </td>
 </tr>
-% endif
