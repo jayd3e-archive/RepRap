@@ -162,24 +162,32 @@
 
 .left_arrow {
     position: absolute;
-    left: 0;
-    height: 50px;
-    width: 50px;
+    left: 10px;
+    top: 100px;
+    height: 100px;
+    width: 25px;
+    background-image: url("../img/left_arrow.png");
+    background-position: 25px 0;
 }
 
 .left_arrow:hover {
     cursor: pointer;
+    background-position: 0 0;
 }
 
 .right_arrow {
     position: absolute;
-    right: 0;
-    height: 50px;
-    width: 50px;
+    right: 10px;
+    top: 100px;
+    height: 100px;
+    width: 25px;
+    background-image: url("../img/right_arrow.png");
+    background-position: 0 0;
 }
 
 .right_arrow:hover {
     cursor: pointer;
+    background-position: 25px 0;
 }
 
 /*
