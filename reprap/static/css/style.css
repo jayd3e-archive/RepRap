@@ -90,10 +90,12 @@
     margin-top: 6px;
     margin-left: 10px;
     width: 175px;
+    border: 0;
+    outline: 0;
 }
 
 .search:focus {
-    outline-color: #73ba5f;
+    outline: s1px solid #73ba5f;
 }
 
 .account {
