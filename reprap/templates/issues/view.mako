@@ -5,7 +5,7 @@
         <h1>View Issue</h1>
         <div class="image_gallery">
             <div class="image_slide">
-            % for image in images:
+            % for image in issue.images:
                 <div class="image">
                     <img src="/static/img/issue_images/${image.directory}/tile.jpeg" />
                 </div>
@@ -15,6 +15,21 @@
             </div>
             <div class="right_arrow" onClick="javascript: slide(this, 'right');">
             </div>
+        </div>
+        <div class="issue">
+            <h1>${issue.title}</h1>
+            <span>Created On: ${issue.created.strftime('%B %d, %Y')}</span>
+            <p>${issue.description}</p>
+        </div>
+        <div class="add_comment">
+            ${form | n}
+        </div>
+        <div class="comments">
+            % for comment in issue.comments:
+                <div class="image">
+                    <p>${comment.body}</p>
+                </div>
+            % endfor
         </div>
     </div>
     <div class="action_column">

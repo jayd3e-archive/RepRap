@@ -3,7 +3,9 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from reprap.forms.issues.add import AddIssueSchema
+from reprap.forms.issue_comments.add import AddIssueCommentSchema
 from reprap.models.issues import IssuesModel
+from reprap.models.issue_comments import IssueCommentsModel
 from reprap.models.issue_images import IssueImagesModel
 from reprap.image import Image
 from deform import Form
@@ -69,6 +71,31 @@ class IssuesHandler(object):
         
         db = self.request.db
         issue = db.query(IssuesModel).filter_by(id=issue_id).first()
+        
+        schema = AddIssueCommentSchema()
+        form = Form(schema, buttons=['submit'])
+        form['body'].title = False
+        
+        if 'submit' in self.request.POST:
+            controls = self.request.POST.items()
+            try:
+                captured = form.validate(controls)
+            except ValidationFailure as e:
+                return {'form':e.render(),
+                        'here':self.here,
+                        'issue' : issue,
+                        'title':title}
+            db = self.request.db
+            
+            issue_comment = IssueCommentsModel(body=captured['body'],
+                                               created=datetime.now(),
+                                               change_time=datetime.now())
+            issue.comments.append(issue_comment)
+            db.add(issue)
+            db.flush()
+            return HTTPFound(location="/issues/view/" + str(issue.id))
+        
         return {'title' : title,
                 'here' : self.here,
-                'images' : issue.images}
+                'issue' : issue,
+                'form':form.render()}

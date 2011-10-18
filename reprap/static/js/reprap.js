@@ -53,7 +53,8 @@ slide = function(node, direction) {
         step = step_size;
         new_left = left_int + step;
         if(new_left > 0) {
-            new_left = left_int;
+            step = step_size - new_left;
+            new_left = left_int + step;
         }
     }
     else {
