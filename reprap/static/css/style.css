@@ -150,6 +150,7 @@
     display: block;
     height: 300px;
     width: 775px;
+    padding-bottom: 10px;
 }
 
 .image_slide {
@@ -193,7 +194,15 @@
 }
 
 .issue {
-    padding-top: 10px;   
+    padding-bottom: 10px;   
+}
+
+.add_comment {
+    padding-bottom: 5px;   
+}
+
+.comment {
+    padding: 5px 0;
 }
 
 /*
@@ -225,4 +234,8 @@
 
 .deform .errorMsgLbl {
     padding: 0;
+}
+
+.deform .issue_comment_add_textarea {
+    width: 775px;   
 }

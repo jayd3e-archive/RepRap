@@ -22,11 +22,12 @@
             <p>${issue.description}</p>
         </div>
         <div class="add_comment">
+            <h1>Comments</h1>
             ${form | n}
         </div>
         <div class="comments">
             % for comment in issue.comments:
-                <div class="image">
+                <div class="comment">
                     <p>${comment.body}</p>
                 </div>
             % endfor
