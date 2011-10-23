@@ -16,12 +16,15 @@ class IssuesModel(Base):
     solved = Column(Integer)
     created = Column(DateTime)
     change_time = Column(DateTime)
-    user_id = Column(Integer, ForeignKey('users.id'))
+    # Right now the user_id is defaulted to 1, until I allow people to create
+    # and login to accounts
+    user_id = Column(Integer, ForeignKey('users.id'), default=1)
     tags = relationship(TagsModel,
                         secondary=TagsIssuesModel,
                         backref="issues")
     comments = relationship(IssueCommentsModel,
-                            backref="issue")
+                            backref="issue",
+                            order_by=IssueCommentsModel.score)
     images = relationship(IssueImagesModel,
                           backref="issue")
 

@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    deactivateArrows = function(image_gallery) {
+    activateArrows = function(image_gallery) {
         $.each(gallery_children, function(id, childNode) {
             if(childNode.className.indexOf("arrow") != -1) {
                 arrow = childNode;
-                arrow.style.display = "none";
+                arrow.style.display = "block";
             }
         });
-    }   
+    };
 
     //Initialize arrows if present.
     image_galleries = document.getElementsByClassName("image_gallery");
@@ -24,8 +24,8 @@ $(document).ready(function() {
         farthestRightElement = image_slide.children[index];
         rightEdgeOffset = farthestRightElement.offsetLeft + farthestRightElement.offsetWidth;
 
-        if(rightEdgeOffset < image_gallery.offsetWidth) {
-            deactivateArrows(image_gallery);
+        if(rightEdgeOffset > image_gallery.offsetWidth) {
+            activateArrows(image_gallery);
         }
     });
 });

@@ -7,6 +7,7 @@ from reprap.forms.issue_comments.add import AddIssueCommentSchema
 from reprap.models.issues import IssuesModel
 from reprap.models.issue_comments import IssueCommentsModel
 from reprap.models.issue_images import IssueImagesModel
+from reprap.models.tags import TagsModel
 from reprap.image import Image
 from deform import Form
 from deform.widget import SequenceWidget
@@ -46,6 +47,17 @@ class IssuesHandler(object):
                                 solved=0,
                                 created=datetime.now(),
                                 edited=datetime.now())
+            
+            if ', ' in captured['tags']:
+                tags = captured['tags'].split(', ')
+            elif ' ' in captured['tags']:
+                tags = captured['tags'].split(' ')
+            elif ',' in captured['tags']:
+                tags = captured['tags'].split(',')
+                
+            for tag in tags:
+                issue.tags.append(TagsModel(name=tag))
+                
             for image_info in captured['images']:
                 base_image = Image(image_info)
                 base_image.resize((300, 300))

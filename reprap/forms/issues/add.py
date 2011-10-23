@@ -10,6 +10,7 @@ from deform.widget import TextInputWidget
 from deform.widget import TextAreaWidget
 from deform.widget import FileUploadWidget
 from deform import FileData
+from reprap.forms.validators import commaSpaceSeparatedListFactory
 
 class MemoryTmpStore(dict):
     def preview_url(self, name):
@@ -17,6 +18,7 @@ class MemoryTmpStore(dict):
 
 store = MemoryTmpStore()
 
+#Schemas
 class ImageSequence(SequenceSchema):
             image = SchemaNode(FileData(),
                                description="Issue Image",
@@ -32,4 +34,5 @@ class AddIssueSchema(MappingSchema):
                              widget=TextAreaWidget(css_class="issue_add_textarea"))
     tags = SchemaNode(String(),
                       description="Issue Tags",
-                      widget=TextInputWidget(css_class = "issue_add_textinput"))
+                      widget=TextInputWidget(css_class = "issue_add_textinput"),
+                      validator=commaSpaceSeparatedListFactory(3))

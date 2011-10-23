@@ -9,6 +9,7 @@ class IssueCommentsModel(Base):
     body = Column(String(300))
     created = Column(DateTime)
     change_time = Column(DateTime)
+    score = Column(Integer(100), default=0)
     issue_id = Column(Integer, ForeignKey('issues.id'))
     user_id = Column(Integer, ForeignKey('users.id'))
 

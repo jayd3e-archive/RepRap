@@ -144,6 +144,10 @@
     display: block;
 }
 
+.action {
+    padding-bottom: 15px;
+}
+
 .image_gallery {
     overflow: hidden;
     position: relative;
@@ -164,6 +168,7 @@
 }
 
 .left_arrow {
+    display: none;
     position: absolute;
     left: 10px;
     top: 100px;
@@ -179,6 +184,7 @@
 }
 
 .right_arrow {
+    display: none;
     position: absolute;
     right: 10px;
     top: 100px;
@@ -203,6 +209,59 @@
 
 .comment {
     padding: 5px 0;
+    clear: both;
+    display: block;
+}
+
+.comment .comment_body {
+    float: left;
+    width: 755px;
+}
+
+.comment .comment_score {
+    padding-top: 11px;
+    float: left;
+    width: 25px;
+}
+
+.comment .comment_rate {
+    float: left;
+    width: 20px;
+}
+
+.comment .comment_rate .up {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 3px;
+    background-image: url('../img/up_arrow.png');
+}
+
+.comment .comment_rate .down {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-image: url('../img/down_arrow.png');
+}
+
+.comment .comment_rate .up:hover {
+    background-position: right;
+}
+
+.comment .comment_rate .down:hover {
+    background-position: right;
+}
+
+.tags li a {
+    color: #3B3B3B;
+    background-color: #73BA5F;
+    padding: 5px;
+    border-radius: 7px;
+    line-height: 2.4;
+}
+
+.tags li a:hover {
+    color: #FFF;
 }
 
 /*
@@ -237,5 +296,5 @@
 }
 
 .deform .issue_comment_add_textarea {
-    width: 775px;   
+    width: 790px;   
 }

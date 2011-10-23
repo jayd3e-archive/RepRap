@@ -41,6 +41,7 @@ def create_schema(engine):
                             Column('body', String(300)),
                             Column('created', DateTime),
                             Column('change_time', DateTime),
+                            Column('score', Integer(100), default=0),
                             Column('issue_id', Integer),
                             Column('user_id', Integer)
     )

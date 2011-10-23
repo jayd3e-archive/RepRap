@@ -7,7 +7,7 @@
             <div class="image_slide">
             % for image in issue.images:
                 <div class="image">
-                    <img src="/static/img/issue_images/${image.directory}/tile.jpeg" />
+                    <img width="300" height"300" src="/static/img/issue_images/${image.directory}/tile.jpeg" />
                 </div>
             % endfor
             </div>
@@ -28,13 +28,33 @@
         <div class="comments">
             % for comment in issue.comments:
                 <div class="comment">
-                    <p>${comment.body}</p>
+                    <div class="comment_body">
+                        <a href="#">${issue.user.username}</a><span> ${comment.created.strftime('%B %d, %Y')}</span>
+                        <p>${comment.body}</p>
+                    </div>
+                    <div class="comment_score">${comment.score}</div>
+                    <div class="comment_rate">
+                        <div class="up"></div>
+                        <div class="down"></div>
+                    </div>
                 </div>
             % endfor
         </div>
     </div>
     <div class="action_column">
-        <h1>Actions</h1>
-        <a href="/issues/add">Add Issue</a>
+        <div class="action">
+            <h1>Tags</h1>
+            <ul class="tags">
+            % for tag in issue.tags:
+                <li>
+                    <a href="/tags/${tag.id}">${tag.name}</a>
+                </li>
+            % endfor
+            </ul>
+        </div>
+        <div class="action">
+            <h1>Actions</h1>
+            <a href="/issues/add">Add Issue</a>
+        </div>
     </div>
 </%def>
