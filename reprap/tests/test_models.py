@@ -7,6 +7,7 @@ from reprap.models.issue_comments import IssueCommentsModel
 from reprap.models.issue_images import IssueImagesModel
 from reprap.models.tags import TagsModel
 from reprap.models.tags_issues import TagsIssuesModel
+from reprap.models.users_comments import UsersCommentsModel
 from reprap.models.users import UsersModel
 from reprap.models.base import initializeBase
 from sqlalchemy.orm import sessionmaker
@@ -151,3 +152,31 @@ class TestModels(unittest.TestCase):
                         msg="str(IssueImagesModel) must start with '<IssueImages'")
         self.assertIn(image, issue.images)
         self.assertEqual(image.issue, issue)
+        
+    def testUsersCommentsModel(self):
+        user = UsersModel(id=5246,
+                          username="jayd3e",
+                          email="test@gmail.com")
+                
+        comment = IssueCommentsModel(id=5678,
+                                     body="U SUCK",
+                                     created=datetime.now(),
+                                     change_time=datetime.now())
+        
+        voted_comment = UsersCommentsModel(user_id=5246,
+                                           comment_id=5678,
+                                           vote=1)
+        session = self.Session()
+        session.add(user)
+        session.add(comment)
+        session.add(voted_comment)
+        
+        session.flush()
+        self.assertTrue(str(voted_comment).startswith('<UsersComments'),
+                        msg="str(UsersCommentsModel) must start with '<UsersComments'")
+        self.assertIn(comment, user.voted_comments)
+        self.assertEqual(user, voted_comment.user)
+        self.assertEqual(user.users_comments, [voted_comment])
+        self.assertIn(user, comment.voted_users)
+        self.assertEqual(comment, voted_comment.comment)
+        self.assertEqual(comment.users_comments, [voted_comment])

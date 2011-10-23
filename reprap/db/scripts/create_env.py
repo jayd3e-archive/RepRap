@@ -55,6 +55,12 @@ def create_schema(engine):
                           Column('issue_id', Integer, ForeignKey('issues.id'))
     )
     
+    users_comments  = Table('users_comments', metadata,
+                            Column('user_id', Integer, primary_key=True),
+                            Column('comment_id', Integer, primary_key=True),
+                            Column('vote', Integer(1))
+    )
+    
     metadata.create_all()
         
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 from reprap.models.base import Base
 from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy.ext.associationproxy import association_proxy
 
 class IssueCommentsModel(Base):
     __tablename__ = 'issue_comments'
@@ -12,6 +13,7 @@ class IssueCommentsModel(Base):
     score = Column(Integer(100), default=0)
     issue_id = Column(Integer, ForeignKey('issues.id'))
     user_id = Column(Integer, ForeignKey('users.id'))
+    voted_users = association_proxy('users_comments', 'user')
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
