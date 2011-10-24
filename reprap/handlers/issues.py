@@ -1,5 +1,4 @@
 from datetime import datetime
-from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from reprap.forms.issues.add import AddIssueSchema
@@ -11,7 +10,6 @@ from reprap.models.tags import TagsModel
 from reprap.image import Image
 from deform import Form
 from deform.widget import SequenceWidget
-from deform.exception import ValidationFailure
 
 class IssuesHandler(object):
     def __init__(self, request):

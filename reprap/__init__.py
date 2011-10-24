@@ -34,6 +34,7 @@ def main(global_config, **settings):
                                         
         #Handler Root Routes
         config.add_route('issues_root', '/issues')
+        config.add_route('toggle_vote', '/toggle_vote/{user_id}/{comment_id}/{vote}')
         #Handler Action Routes
         config.add_route('issues_add', '/issues/add')
         config.add_route('issues_view', '/issues/view/{id}')
