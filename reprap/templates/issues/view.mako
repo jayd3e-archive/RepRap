@@ -34,8 +34,8 @@
                     </div>
                     <div class="comment_score">${comment.score}</div>
                     <div class="comment_rate">
-                        <div class="up"></div>
-                        <div class="down"></div>
+                        <div class="up" onClick="javascript: toggle_vote(1, ${comment.id}, 'up');"></div>
+                        <div class="down" onClick="javascript: toggle_vote(1, ${comment.id}, 'down');"></div>
                     </div>
                 </div>
             % endfor

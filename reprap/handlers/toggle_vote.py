@@ -7,8 +7,8 @@ class ToggleVoteHandler(object):
         self.here = request.environ['PATH_INFO']
         self.matchdict = request.matchdict
         
-    @view_config(route_name='toggle_vote', renderer='toggle_vote/index.mako')
-    def index(self):
+    @view_config(route_name='toggle_vote', renderer='json')
+    def toggle_vote(self):
         user_id = self.matchdict['user_id']
         comment_id = self.matchdict['comment_id']
         vote = self.matchdict['vote']
@@ -18,11 +18,23 @@ class ToggleVoteHandler(object):
         elif vote=='down':
             vote = -1
         else:
-            return {}
+            return {'status' : 'unchanged'}
         
         db = self.request.db
         voted_comment = db.query(UsersCommentsModel).filter_by(user_id=user_id,
-                                                               comment_id=comment_id)
+                                                               comment_id=comment_id).first()
+        # Vote exists                                                             
         if voted_comment:
-            
-        return {}
+            if voted_comment.vote != vote:
+                voted_comment.vote = vote
+                db.flush()
+                return {'status' : 'changed'}
+            return {'status' : 'unchanged'}
+        # Vote doesn't exist
+        else:
+            voted_comment = UsersCommentsModel(user_id=user_id,
+                                               comment_id=comment_id,
+                                               vote=vote)
+            db.add(voted_comment)
+            db.flush()
+            return {'status' : 'added'}

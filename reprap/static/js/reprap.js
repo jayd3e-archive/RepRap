@@ -41,7 +41,7 @@ slide = function(node, direction) {
             image_slide = childNode;   
         }
     });
-    left = image_slide.style.left == "" ? "0px" : image_slide.style.left;
+    left = image_slide.style.left === "" ? "0px" : image_slide.style.left;
     left_int = parseInt(left);
     
     index = image_slide.children.length - 1;
@@ -68,4 +68,11 @@ slide = function(node, direction) {
     }
     
     image_slide.style.left = String(new_left) + "px";
+};
+
+toggle_vote = function(user_id, comment_id, vote) {
+	$.ajax({
+		type: "GET",
+	    url: "/toggle_vote/" + user_id + "/" + comment_id + "/" + vote
+	});
 };
