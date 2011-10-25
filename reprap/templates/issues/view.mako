@@ -27,6 +27,23 @@
         </div>
         <div class="comments">
             % for comment in issue.comments:
+                <%
+                user_id = 1
+                up = "up"
+                down = "down"
+                vote = ""
+
+                for users_comments in issue.user.users_comments:
+                    if user_id == users_comments.user_id and comment.id == users_comments.comment_id:
+                        vote = users_comments.vote
+                        if vote == 1:
+                            up = up + " active"
+                        elif  vote == -1:
+                            down = down + " active"
+                        break
+                    else:
+                        continue
+                %>
                 <div class="comment">
                     <div class="comment_body">
                         <a href="#">${issue.user.username}</a><span> ${comment.created.strftime('%B %d, %Y')}</span>
@@ -34,8 +51,8 @@
                     </div>
                     <div class="comment_score">${comment.score}</div>
                     <div class="comment_rate">
-                        <div class="up" onClick="javascript: toggle_vote(1, ${comment.id}, 'up');"></div>
-                        <div class="down" onClick="javascript: toggle_vote(1, ${comment.id}, 'down');"></div>
+                        <div class="${up}" onClick="javascript: toggle_vote(this, ${user_id}, ${comment.id}, 'up');"></div>
+                        <div class="${down}" onClick="javascript: toggle_vote(this, ${user_id}, ${comment.id}, 'down');"></div>
                     </div>
                 </div>
             % endfor

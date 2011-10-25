@@ -5,6 +5,7 @@ from reprap.models.issue_comments import IssueCommentsModel
 from reprap.models.issue_images import IssueImagesModel
 from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
+from sqlalchemy import desc
 from sqlalchemy.orm import relationship
 
 class IssuesModel(Base):
@@ -24,7 +25,7 @@ class IssuesModel(Base):
                         backref="issues")
     comments = relationship(IssueCommentsModel,
                             backref="issue",
-                            order_by=IssueCommentsModel.score)
+                            order_by=desc(IssueCommentsModel.score))
     images = relationship(IssueImagesModel,
                           backref="issue")
 

@@ -70,9 +70,52 @@ slide = function(node, direction) {
     image_slide.style.left = String(new_left) + "px";
 };
 
-toggle_vote = function(user_id, comment_id, vote) {
+toggle_vote = function(node, user_id, comment_id, vote) {
+    comment_rate = node.parentNode;
+    comment = comment_rate.parentNode;
+        
+    removeActiveClass = function(node) {
+        index = node.className.indexOf("active");
+        node.className = (index != -1) ? node.className.substring(0, index) : node.className;
+    };
+    
+    addActiveClass = function(node) {
+        node.className = node.className + " active";
+    };
+    
+    removeAllActiveClasses = function(parent) {
+        $.each(parent.children, function(index, child) {
+            removeActiveClass(child); 
+        });
+    };
+    
+    setScore = function(score) {
+        comment_score = undefined;
+        $.each(comment.children, function(index, child) {
+            if (child.className == "comment_score") {
+                comment_score = child;   
+            }
+        });
+        comment_score.innerHTML = String(score);
+    };
+    
+    toggleVoteCallback = function(data) {
+        if (data.status != "unchanged") {
+            if (node.className.indexOf("active") != -1) {
+                removeAllActiveClasses(comment_rate);
+            }
+            else {
+                removeAllActiveClasses(comment_rate);
+                addActiveClass(node);
+            }
+        }
+        
+        setScore(data.score);
+    };
+        
 	$.ajax({
 		type: "GET",
-	    url: "/toggle_vote/" + user_id + "/" + comment_id + "/" + vote
+	    url: "/toggle_vote/" + user_id + "/" + comment_id + "/" + vote,
+        success: toggleVoteCallback
 	});
 };

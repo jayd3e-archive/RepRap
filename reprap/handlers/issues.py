@@ -93,7 +93,7 @@ class IssuesHandler(object):
             except ValidationFailure as e:
                 return {'form':e.render(),
                         'here':self.here,
-                        'issue' : issue,
+                        'issue':issue,
                         'title':title}
             db = self.request.db
             
@@ -105,7 +105,7 @@ class IssuesHandler(object):
             db.flush()
             return HTTPFound(location="/issues/view/" + str(issue.id))
         
-        return {'title' : title,
-                'here' : self.here,
-                'issue' : issue,
+        return {'title':title,
+                'here':self.here,
+                'issue':issue,
                 'form':form.render()}

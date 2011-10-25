@@ -1,5 +1,6 @@
 from pyramid.view import view_config
 from reprap.models.users_comments import UsersCommentsModel
+from reprap.models.issue_comments import IssueCommentsModel
 
 class ToggleVoteHandler(object):
     def __init__(self, request):
@@ -13,14 +14,15 @@ class ToggleVoteHandler(object):
         comment_id = self.matchdict['comment_id']
         vote = self.matchdict['vote']
         
+        db = self.request.db
+        comment = db.query(IssueCommentsModel).filter_by(id=comment_id).first()
         if vote=='up':
             vote = 1
         elif vote=='down':
             vote = -1
         else:
-            return {'status' : 'unchanged'}
+            return {'status' : 'unchanged', 'score' : comment.score}
         
-        db = self.request.db
         voted_comment = db.query(UsersCommentsModel).filter_by(user_id=user_id,
                                                                comment_id=comment_id).first()
         # Vote exists                                                             
@@ -28,8 +30,12 @@ class ToggleVoteHandler(object):
             if voted_comment.vote != vote:
                 voted_comment.vote = vote
                 db.flush()
-                return {'status' : 'changed'}
-            return {'status' : 'unchanged'}
+                status = 'changed'
+            else:
+                db.delete(voted_comment)
+                db.flush()
+                status = 'deleted'
+                
         # Vote doesn't exist
         else:
             voted_comment = UsersCommentsModel(user_id=user_id,
@@ -37,4 +43,15 @@ class ToggleVoteHandler(object):
                                                vote=vote)
             db.add(voted_comment)
             db.flush()
-            return {'status' : 'added'}
+            status = 'added'
+        
+        score = self.calculateScore(comment)
+        comment.score = score
+        db.flush()
+        return {'status' : status, 'score' : score}
+        
+    def calculateScore(self, comment):
+        score = 0
+        for users_comments in comment.users_comments:
+            score += users_comments.vote
+        return score

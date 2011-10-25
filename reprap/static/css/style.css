@@ -245,10 +245,18 @@
 }
 
 .comment .comment_rate .up:hover {
-    background-position: right;
+    background-position: -20px 0px;
 }
 
 .comment .comment_rate .down:hover {
+    background-position: -20px 0px;
+}
+
+.comment .comment_rate .active {
+   background-position: -40px 0px;
+}
+
+.comment .comment_rate .active:hover {
     background-position: right;
 }
 
