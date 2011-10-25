@@ -19,6 +19,8 @@ def commaSpaceSeparatedListFactory(num):
                 if not len(values) >= num:
                     raise Exception
             else:
+                if value != "":
+                    return
                 raise Exception
         except Exception:
             raise Invalid(node,

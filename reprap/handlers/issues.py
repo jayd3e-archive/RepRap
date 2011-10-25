@@ -3,13 +3,16 @@ from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
 from reprap.forms.issues.add import AddIssueSchema
 from reprap.forms.issue_comments.add import AddIssueCommentSchema
+from reprap.forms.tags.add import AddTagSchema
 from reprap.models.issues import IssuesModel
 from reprap.models.issue_comments import IssueCommentsModel
 from reprap.models.issue_images import IssueImagesModel
 from reprap.models.tags import TagsModel
 from reprap.image import Image
 from deform import Form
+from deform import Button
 from deform.widget import SequenceWidget
+from deform.exception import ValidationFailure
 
 class IssuesHandler(object):
     def __init__(self, request):
@@ -82,16 +85,23 @@ class IssuesHandler(object):
         db = self.request.db
         issue = db.query(IssuesModel).filter_by(id=issue_id).first()
         
-        schema = AddIssueCommentSchema()
-        form = Form(schema, buttons=['submit'])
-        form['body'].title = False
+        add_issue_comment_schema = AddIssueCommentSchema()
+        add_issue_comment_button = Button(name="comment_submit", title="Add Comment")
+        add_issue_comment_form = Form(add_issue_comment_schema, buttons=[add_issue_comment_button])
+        add_issue_comment_form['body'].title = False
         
-        if 'submit' in self.request.POST:
+        add_tag_schema = AddTagSchema()
+        add_tag_button = Button(name="tag_submit", title="Add Tag")
+        add_tag_form = Form(add_tag_schema, buttons=[add_tag_button])
+        add_tag_form['tags'].title = False
+        
+        if 'comment_submit' in self.request.POST:
             controls = self.request.POST.items()
             try:
-                captured = form.validate(controls)
+                captured = add_issue_comment_form.validate(controls)
             except ValidationFailure as e:
-                return {'form':e.render(),
+                return {'add_issue_comment_form':e.render(),
+                        'add_tag_form':add_tag_form.render(),
                         'here':self.here,
                         'issue':issue,
                         'title':title}
@@ -101,11 +111,38 @@ class IssuesHandler(object):
                                                created=datetime.now(),
                                                change_time=datetime.now())
             issue.comments.append(issue_comment)
-            db.add(issue)
+            
+            db.flush()
+            return HTTPFound(location="/issues/view/" + str(issue.id))
+        elif 'tag_submit' in self.request.POST:
+            controls = self.request.POST.items()
+            try:
+                captured = add_tag_form.validate(controls)
+            except ValidationFailure as e:
+                return {'add_tag_form':e.render(),
+                        'add_issue_comment_form':add_issue_comment_form.render(),
+                        'here':self.here,
+                        'issue':issue,
+                        'title':title}
+            db = self.request.db
+            
+            if ', ' in captured['tags']:
+                tags = captured['tags'].split(', ')
+            elif ' ' in captured['tags']:
+                tags = captured['tags'].split(' ')
+            elif ',' in captured['tags']:
+                tags = captured['tags'].split(',')
+            else:
+                tags = [captured['tags']]
+                
+            for tag in tags:
+                issue.tags.append(TagsModel(name=tag))
+            
             db.flush()
             return HTTPFound(location="/issues/view/" + str(issue.id))
         
         return {'title':title,
                 'here':self.here,
                 'issue':issue,
-                'form':form.render()}
+                'add_tag_form':add_tag_form.render(),
+                'add_issue_comment_form':add_issue_comment_form.render()}

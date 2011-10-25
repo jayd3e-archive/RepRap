@@ -260,6 +260,10 @@
     background-position: right;
 }
 
+.tags {
+    padding-bottom: 10px;   
+}
+
 .tags li a {
     color: #3B3B3B;
     background-color: #73BA5F;

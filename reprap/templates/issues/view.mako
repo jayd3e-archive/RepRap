@@ -23,7 +23,7 @@
         </div>
         <div class="add_comment">
             <h1>Comments</h1>
-            ${form | n}
+            ${add_issue_comment_form | n}
         </div>
         <div class="comments">
             % for comment in issue.comments:
@@ -68,6 +68,7 @@
                 </li>
             % endfor
             </ul>
+            ${add_tag_form | n}
         </div>
         <div class="action">
             <h1>Actions</h1>
