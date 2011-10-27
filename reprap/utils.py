@@ -23,7 +23,7 @@ def trunc(s,min_pos=0,max_pos=75,ellipsis=True):
     # Case 1: Return string if it is shorter (or equal to) than the limit
     length = len(s)
     if length <= max_pos:
-        return s + suffix
+        return s
     else:
         # Case 2: Return it to nearest period if possible
         try:

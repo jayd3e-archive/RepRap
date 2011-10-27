@@ -23,6 +23,7 @@ def create_schema(engine):
                     Column('solved', Integer),
                     Column('created', DateTime),
                     Column('change_time', DateTime),
+                    Column('solved_time', DateTime),
                     Column('user_id', Integer)
     )
     
@@ -64,6 +65,6 @@ def create_schema(engine):
     metadata.create_all()
         
 if __name__ == '__main__':
-    engine = create_engine('sqlite://', 
+    engine = create_engine('postgresql+psycopg2://jayd3e:sharpshooter7&7@localhost/reprap_dev', 
                            pool_recycle=3600)
     create_schema(engine)

@@ -17,6 +17,7 @@ class IssuesModel(Base):
     solved = Column(Integer)
     created = Column(DateTime)
     change_time = Column(DateTime)
+    solved_time = Column(DateTime)
     # Right now the user_id is defaulted to 1, until I allow people to create
     # and login to accounts
     user_id = Column(Integer, ForeignKey('users.id'), default=1)

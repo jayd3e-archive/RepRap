@@ -22,6 +22,9 @@ class IssuesHandler(object):
         
     @view_config(route_name='issues_root', renderer='issues/index.mako')
     def index(self):
+        db = self.request.db
+        recent_issues = db.query(IssuesModel).order_by(IssuesModel.created).all()
+        recent_solved_issue = db.query(IssuesModel).filter_by(solved=1).order_by(IssuesModel.solved_time).all()
         return {'title' : 'Issue Tracker',
                 'here' : self.here}
                 

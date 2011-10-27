@@ -8,7 +8,7 @@
             <div class="main">
                 <a 
                 ${' class="active" ' if '/wiki' in here else '' | n}
-                href="#">1. Read the Wiki</a>
+                href="http://reprap.org">1. Read the Wiki</a>
             </div>
         </li>
         <li class="arrow0">
@@ -30,7 +30,7 @@
             <div class="main">
                 <a 
                 ${' class="active" ' if '/issues' in here else '' | n}
-                href="#">3. Fix Issues</a>
+                href="/issues">3. Fix Issues</a>
             </div>
         </li>
         <li class="arrow2">
