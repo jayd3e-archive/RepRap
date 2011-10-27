@@ -261,7 +261,8 @@
 }
 
 .tags {
-    padding-bottom: 10px;   
+    padding-bottom: 5px;
+    clear: both;
 }
 
 .tags li a {
@@ -283,6 +284,10 @@
 */
 .deform table {
     padding: 0;   
+}
+
+.deform button {
+    margin: 0;
 }
 
 .deform table td, .deform table th {
@@ -309,4 +314,15 @@
 
 .deform .issue_comment_add_textarea {
     width: 790px;   
+}
+
+/*
+*
+*   ADD_TAG_FORM
+*
+*
+*/
+.add_tag_form input{
+    margin: 0px;
+    width: 160px
 }

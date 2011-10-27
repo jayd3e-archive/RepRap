@@ -62,9 +62,12 @@
         <div class="action">
             <h1>Tags</h1>
             <ul class="tags">
+            <%
+            from reprap.utils import trunc
+            %>
             % for tag in issue.tags:
                 <li>
-                    <a href="/tags/${tag.id}">${tag.name}</a>
+                    <a href="/tags/${tag.id}">${trunc(tag.name, max_pos=21)}</a>
                 </li>
             % endfor
             </ul>

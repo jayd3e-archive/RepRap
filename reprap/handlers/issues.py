@@ -49,13 +49,7 @@ class IssuesHandler(object):
                                 created=datetime.now(),
                                 edited=datetime.now())
             
-            if ', ' in captured['tags']:
-                tags = captured['tags'].split(', ')
-            elif ' ' in captured['tags']:
-                tags = captured['tags'].split(' ')
-            elif ',' in captured['tags']:
-                tags = captured['tags'].split(',')
-                
+            tags = self.separateTags(captured['tags'])  
             for tag in tags:
                 issue.tags.append(TagsModel(name=tag))
                 
@@ -91,8 +85,7 @@ class IssuesHandler(object):
         add_issue_comment_form['body'].title = False
         
         add_tag_schema = AddTagSchema()
-        add_tag_button = Button(name="tag_submit", title="Add Tag")
-        add_tag_form = Form(add_tag_schema, buttons=[add_tag_button])
+        add_tag_form = Form(add_tag_schema, css_class='add_tag_form')
         add_tag_form['tags'].title = False
         
         if 'comment_submit' in self.request.POST:
@@ -114,7 +107,7 @@ class IssuesHandler(object):
             
             db.flush()
             return HTTPFound(location="/issues/view/" + str(issue.id))
-        elif 'tag_submit' in self.request.POST:
+        elif 'tags' in self.request.POST:
             controls = self.request.POST.items()
             try:
                 captured = add_tag_form.validate(controls)
@@ -126,15 +119,7 @@ class IssuesHandler(object):
                         'title':title}
             db = self.request.db
             
-            if ', ' in captured['tags']:
-                tags = captured['tags'].split(', ')
-            elif ' ' in captured['tags']:
-                tags = captured['tags'].split(' ')
-            elif ',' in captured['tags']:
-                tags = captured['tags'].split(',')
-            else:
-                tags = [captured['tags']]
-                
+            tags = self.separateTags(captured['tags'])
             for tag in tags:
                 issue.tags.append(TagsModel(name=tag))
             
@@ -146,3 +131,15 @@ class IssuesHandler(object):
                 'issue':issue,
                 'add_tag_form':add_tag_form.render(),
                 'add_issue_comment_form':add_issue_comment_form.render()}
+                
+    def separateTags(self, tag_string):
+        tags = []
+        if ', ' in tag_string:
+            tags = tag_string.split(', ')
+        elif ' ' in tag_string:
+            tags = tag_string.split(' ')
+        elif ',' in tag_string:
+            tags = tag_string.split(',')
+        else:
+            tags = [tag_string]
+        return tags

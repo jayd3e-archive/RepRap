@@ -12,5 +12,5 @@ from reprap.forms.validators import commaSpaceSeparatedListFactory
 class AddTagSchema(MappingSchema):
     tags = SchemaNode(String(),
                       description="Tags",
-                      widget=TextInputWidget(css_class = "tag_add_textinput"),
+                      widget=TextInputWidget(css_class="tag_add_textinput"),
                       validator=commaSpaceSeparatedListFactory(1))
