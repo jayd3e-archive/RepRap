@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(window).ready(function() {
     activateArrows = function(image_gallery) {
         $.each(gallery_children, function(id, childNode) {
             if(childNode.className.indexOf("arrow") != -1) {
