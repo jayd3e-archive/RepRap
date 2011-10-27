@@ -6,10 +6,12 @@
         % for issue in recent_issues:
             <a href="/issues/view/${issue.id}"><h2>${issue.title}</h2></a>
             % for image in issue.images:
-                <img width="50" 
-                    height="50" 
-                    class="issue_thumbnail" 
-                    src="/static/img/issue_images/${image.directory}/thumbnail.jpeg" />
+                <a href="/issues/view/${issue.id}">
+                    <img width="50" 
+                        height="50" 
+                        class="issue_thumbnail" 
+                        src="/static/img/issue_images/${image.directory}/thumbnail.jpeg" />
+                </a>
             % endfor
             <p>${issue.description}</p>
         % endfor
