@@ -13,6 +13,7 @@ from deform import Form
 from deform import Button
 from deform.widget import SequenceWidget
 from deform.exception import ValidationFailure
+from sqlalchemy import desc
 
 class IssuesHandler(object):
     def __init__(self, request):
@@ -23,10 +24,12 @@ class IssuesHandler(object):
     @view_config(route_name='issues_root', renderer='issues/index.mako')
     def index(self):
         db = self.request.db
-        recent_issues = db.query(IssuesModel).order_by(IssuesModel.created).all()
-        recent_solved_issue = db.query(IssuesModel).filter_by(solved=1).order_by(IssuesModel.solved_time).all()
+        recent_issues = db.query(IssuesModel).order_by(desc(IssuesModel.created)).all()
+        recent_solved_issues = db.query(IssuesModel).filter_by(solved=1).order_by(IssuesModel.solved_time).all()
         return {'title' : 'Issue Tracker',
-                'here' : self.here}
+                'here' : self.here,
+                'recent_issues' : recent_issues,
+                'recent_solved_issues' : recent_solved_issues}
                 
     @view_config(route_name='issues_add', renderer='issues/add.mako')
     def add(self):
