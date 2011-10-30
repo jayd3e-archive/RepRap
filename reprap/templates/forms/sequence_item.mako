@@ -9,7 +9,7 @@
 <!-- sequence_item -->
   ${field.serialize(cstruct)}
   % if not field.widget.hidden:
-  <div class="deformClosebutton" id="${field.oid}-close" title="Remove" onclick="javascript:deform.removeSequenceItem(this);"></div>
+  <div class="deformClosebutton" id="${field.oid}-close" title="Remove" onclick="javascript:deform.removeSequenceItem(this);">Delete</div>
   % endif
   % if field.error and not field.widget.hidden:
   % for index, msg in enumerate(field.error.messages()):

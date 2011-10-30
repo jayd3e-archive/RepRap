@@ -277,6 +277,10 @@
     color: #FFF;
 }
 
+.thumbnails {
+    padding-bottom: 4px;
+}
+
 /*
 *
 *  DEFORM STYLE
@@ -314,6 +318,14 @@
 
 .deform .issue_comment_add_textarea {
     width: 790px;   
+}
+
+.deformSeq ul li div {
+    display: inline;
+}
+
+.deformClosebutton {
+    vertical-align: baseline;
 }
 
 /*

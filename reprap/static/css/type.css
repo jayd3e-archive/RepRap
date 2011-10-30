@@ -1,44 +1,50 @@
 /*
  *DEFAULT FONT STYLES
  */
-h1,h2,h3,h4,h5,h6,span,a,legend,input,label,th {
-    font-family:  Helvetica, Verdana, Geneva, sans-serif;
+h1,h2,h3,h4,h5,h6 {
+    font-family:  Tahoma, Verdana, Geneva, sans-serif;
+    font-weight: 300;
+}
+
+span,a,legend,input,label,th,small {
+    font-family:  Arial, Verdana, Geneva, sans-serif;
     font-weight: 300;
 }
 p {
-    font-family:  Helvetica, Verdana, Geneva, sans-serif;
+    font-family:  Arial, Verdana, Geneva, sans-serif;
 }
 a {
     font-size: 78%;
     text-decoration: none;
 }
 p,input,span,legend,label {
-    font-size: 70%;
+    font-size: 78%;
 }
-h1, h2, h3, h4, h5, h6, th {
-    color: #2e2e2e;
-    padding-bottom: 5px;
+h1, h2, h3, h4, h5, h6 {
+    color: #75b164;
     text-align: left;
     vertical-align: top;
 }
-h1, th {
-    font-size: 78%;
+th {
+    font-size: 85%;
+    color: #2e2e2e;
+    text-align: left;
+    vertical-align: top;  
+}
+h1 {
+    font-size: 95%;
+    padding-bottom: 10px;
     font-weight: 300;
+    text-decoration: underline;
 }
 h2 {
-    font-size: 105%;
-}
-h3 {
-    font-size: 100%;
-}
-h4 {
+    color: #2e2e2e;
+    padding-bottom: 3px;
     font-size: 95%;
+    font-weight: 300;
 }
-h5 {
-    font-size: 90%;
-}
-h6 {
-    font-size: 85%;
+h2:hover {
+    color: #75b164;
 }
 .main_nav a {
     font-weight: 600;
@@ -55,6 +61,18 @@ h6 {
     font-size: 71%;
     color: #73ba5f;
     font-weight: 600;
+}
+.issue_small_descrip {
+    padding-bottom: 10px;   
+}
+.deformClosebutton {
+    font-size: 78%;
+    cursor: pointer;
+    font-family:  Arial, Verdana, Geneva, sans-serif;
+}
+
+.deformClosebutton:hover {
+    color: #75b164;
 }
 
 /*

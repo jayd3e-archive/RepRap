@@ -74,7 +74,7 @@
             ${add_tag_form | n}
         </div>
         <div class="action">
-            <h1>Actions</h1>
+            <h1>ACTIONS</h1>
             <a href="/issues/add">Add Issue</a>
         </div>
     </div>
