@@ -7,8 +7,10 @@ from sqlalchemy.orm import relationship
 
 class UsersCommentsModel(Base):
     __tablename__ = 'users_comments'
-    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    comment_id = Column(Integer, ForeignKey('issue_comments.id'), primary_key=True)
+    
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    comment_id = Column(Integer, ForeignKey('issue_comments.id'))
     vote = Column(Integer(1))
     
     user = relationship(UsersModel,
